@@ -12,7 +12,7 @@ const router = require('./Routes/router');
 const port = process.env.PORT || 6002;
 
 app.use(cors({
-    origin:[""],
+    origin:["https://myapp-kfya.vercel.app/"],
     methods:["POST","GET"],
     credentials:true
 }));
