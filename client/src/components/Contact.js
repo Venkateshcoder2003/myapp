@@ -45,7 +45,7 @@ const Contact = () => {
             toast.error("mobile is Required")
         } else {
             //called api after clicking button
-            const res = await fetch("http://localhost:6002/register", {
+            const res = await fetch("myapp-three-liart.vercel.app/register", {
                 method: "POST",
                 headers: {
                     "content-Type": "application/json"
