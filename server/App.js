@@ -11,7 +11,11 @@ const router = require('./Routes/router');
 
 const port = process.env.PORT || 6002;
 
-app.use(cors());
+app.use(cors({
+    origin:[""],
+    methods:["POST","GET"],
+    credentials:true
+}));
 app.use(express.json());
 
 app.use(router);
