@@ -31,7 +31,7 @@ const Contact = () => {
 
 
 
-    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    const API_URL = process.env.REACT_APP_API_URL;
 
 const sentUserdata = async (e) => {
     e.preventDefault();
@@ -64,6 +64,7 @@ const sentUserdata = async (e) => {
                 toast.success("Your Response Submitted");
 
                 setInputvalue({
+                    ...inputvalues,
                     fname: "",
                     lname: "",
                     email: "",
