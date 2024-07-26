@@ -29,8 +29,12 @@ const Contact = () => {
         })
     }
 
-    const sentUserdata = async (e) => {
-    e.preventDefault(); // Prevent page reload
+
+
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+const sentUserdata = async (e) => {
+    e.preventDefault();
 
     const { fname, lname, email, mobile, message } = inputvalues;
     if (fname === "") {
@@ -45,7 +49,7 @@ const Contact = () => {
         toast.error("Mobile is Required");
     } else {
         try {
-            const res = await fetch("https://myapp-2i2n.vercel.app/register", {  // Updated URL
+            const res = await fetch(`${API_URL}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -75,6 +79,53 @@ const Contact = () => {
         }
     }
 }
+
+//     const sentUserdata = async (e) => {
+//     e.preventDefault(); // Prevent page reload
+
+//     const { fname, lname, email, mobile, message } = inputvalues;
+//     if (fname === "") {
+//         toast.error("First Name is Required");
+//     } else if (lname === "") {
+//         toast.error("Last Name is Required");
+//     } else if (email === "") {
+//         toast.error("Email is Required");
+//     } else if (!email.includes("@")) {
+//         toast.error("Invalid Email");
+//     } else if (mobile === "") {
+//         toast.error("Mobile is Required");
+//     } else {
+//         try {
+//             const res = await fetch("https://myapp-2i2n.vercel.app/register", {  // Updated URL
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/json"
+//                 },
+//                 body: JSON.stringify({
+//                     fname, lname, email, mobile, message
+//                 })
+//             });
+//             const data = await res.json();
+
+//             if (res.status === 201) {
+//                 toast.success("Your Response Submitted");
+
+//                 setInputvalue({
+//                     fname: "",
+//                     lname: "",
+//                     email: "",
+//                     mobile: "",
+//                     message: ""
+//                 });
+//             } else {
+//                 toast.error(data.error || "Failed to submit your response");
+//             }
+//         } catch (error) {
+//             console.error("Error:", error);
+//             toast.error("An error occurred");
+//         }
+//     }
+// }
 
     
     // const sentUserdata = async (e) => {
