@@ -229,15 +229,13 @@
 
 import React, { useState } from 'react';
 import "./contact.css";
-// Importing Form 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-// Import from toastify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const Contact = () => {
-    // Track input entered by user
     const [inputvalues, setInputvalue] = useState({
         fname: "",
         lname: "",
@@ -272,16 +270,17 @@ const Contact = () => {
             toast.error("Mobile is Required");
         } else {
             try {
-                const res = await fetch(`${API_URL}/register`, {
-                    method: "POST",
+                const res = await axios.post(`${API_URL}/register`, {
+                    fname,
+                    lname,
+                    email,
+                    mobile,
+                    message
+                }, {
                     headers: {
                         "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        fname, lname, email, mobile, message
-                    })
+                    }
                 });
-                const data = await res.json();
 
                 if (res.status === 201) {
                     toast.success("Your Response Submitted");
@@ -294,11 +293,15 @@ const Contact = () => {
                         message: ""
                     });
                 } else {
-                    toast.error(data.error || "Failed to submit your response");
+                    toast.error(res.data.error || "Failed to submit your response");
                 }
             } catch (error) {
                 console.error("Error:", error);
-                toast.error("An error occurred");
+                if (error.response) {
+                    toast.error(error.response.data.error || "An error occurred");
+                } else {
+                    toast.error("An error occurred");
+                }
             }
         }
     };
