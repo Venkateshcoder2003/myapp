@@ -45,8 +45,7 @@ const Contact = () => {
         toast.error("Mobile is Required");
     } else {
         try {
-            console.log("Sending data to server:", { fname, lname, email, mobile, message });
-            const res = await fetch("/register", {
+            const res = await fetch("https://myapp-2i2n.vercel.app/register", {  // Updated URL
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -55,11 +54,9 @@ const Contact = () => {
                     fname, lname, email, mobile, message
                 })
             });
-            console.log("Response status:", res.status);
             const data = await res.json();
-            console.log("Response data:", data);
 
-            if (data.status === 201) {
+            if (res.status === 201) {
                 toast.success("Your Response Submitted");
 
                 setInputvalue({
@@ -70,7 +67,7 @@ const Contact = () => {
                     message: ""
                 });
             } else {
-                toast.error("Failed to submit your response");
+                toast.error(data.error || "Failed to submit your response");
             }
         } catch (error) {
             console.error("Error:", error);
