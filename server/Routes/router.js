@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
     }
 })
 //register user details
-router.post('myapp-3o2n.vercel.app/register', async (req, res) => {
+router.post('/register', async (req, res) => {
     const { fname, lname, email, mobile, message } = req.body;
     //console.log(req.body);
     if (!fname || !lname || !email || !mobile) {
