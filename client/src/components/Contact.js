@@ -45,7 +45,7 @@ const Contact = () => {
         toast.error("Mobile is Required");
     } else {
         try {
-            const res = await fetch("/register", {
+            const res = await fetch("https://myapp-kfya.vercel.app/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
