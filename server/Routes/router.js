@@ -1,7 +1,7 @@
 const express = require('express')
 //creating new Router
 const router = new express.Router();
-const users = require("../models/userSchema")
+const users = require("./models/userSchema")
 
 const nodemailer = require('nodemailer');
 const { error } = require('console');
