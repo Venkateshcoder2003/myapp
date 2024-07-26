@@ -29,7 +29,7 @@ const Contact = () => {
         })
     }
 
-     const sentUserdata = async (e) => {
+    const sentUserdata = async (e) => {
     e.preventDefault(); // Prevent page reload
 
     const { fname, lname, email, mobile, message } = inputvalues;
@@ -45,6 +45,7 @@ const Contact = () => {
         toast.error("Mobile is Required");
     } else {
         try {
+            console.log("Sending data to server:", { fname, lname, email, mobile, message });
             const res = await fetch("/register", {
                 method: "POST",
                 headers: {
@@ -54,8 +55,9 @@ const Contact = () => {
                     fname, lname, email, mobile, message
                 })
             });
-
+            console.log("Response status:", res.status);
             const data = await res.json();
+            console.log("Response data:", data);
 
             if (data.status === 201) {
                 toast.success("Your Response Submitted");
