@@ -29,49 +29,98 @@ const Contact = () => {
         })
     }
 
-    const sentUserdata = async (e) => {
-        e.preventDefault();//when we click on submit button page reloads to prevent that ue use this
+     const sentUserdata = async (e) => {
+    e.preventDefault(); // Prevent page reload
 
-        const { fname, lname, email, mobile, message } = inputvalues;
-        if (fname === "") {
-            toast.error("FirstName is Required")
-        } else if (lname === "") {
-            toast.error("Lastname is Required")
-        } else if (email === "") {
-            toast.error("email is Required")
-        } else if (!email.includes("@")) {
-            toast.error("Invalid Email")
-        } else if (mobile === "") {
-            toast.error("mobile is Required")
-        } else {
-            //called api after clicking button
+    const { fname, lname, email, mobile, message } = inputvalues;
+    if (fname === "") {
+        toast.error("First Name is Required");
+    } else if (lname === "") {
+        toast.error("Last Name is Required");
+    } else if (email === "") {
+        toast.error("Email is Required");
+    } else if (!email.includes("@")) {
+        toast.error("Invalid Email");
+    } else if (mobile === "") {
+        toast.error("Mobile is Required");
+    } else {
+        try {
             const res = await fetch("/register", {
                 method: "POST",
                 headers: {
-                    "content-Type": "application/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     fname, lname, email, mobile, message
                 })
             });
+
             const data = await res.json();
-            console.log(data);
 
             if (data.status === 201) {
-                toast.success("Your Response Submitted")
+                toast.success("Your Response Submitted");
 
                 setInputvalue({
-                    ...inputvalues,
                     fname: "",
                     lname: "",
                     email: "",
                     mobile: "",
                     message: ""
-                })
+                });
+            } else {
+                toast.error("Failed to submit your response");
             }
-
+        } catch (error) {
+            console.error("Error:", error);
+            toast.error("An error occurred");
         }
     }
+}
+
+    
+    // const sentUserdata = async (e) => {
+    //     e.preventDefault();//when we click on submit button page reloads to prevent that ue use this
+
+    //     const { fname, lname, email, mobile, message } = inputvalues;
+    //     if (fname === "") {
+    //         toast.error("FirstName is Required")
+    //     } else if (lname === "") {
+    //         toast.error("Lastname is Required")
+    //     } else if (email === "") {
+    //         toast.error("email is Required")
+    //     } else if (!email.includes("@")) {
+    //         toast.error("Invalid Email")
+    //     } else if (mobile === "") {
+    //         toast.error("mobile is Required")
+    //     } else {
+    //         //called api after clicking button
+    //         const res = await fetch("/register", {
+    //             method: "POST",
+    //             headers: {
+    //                 "content-Type": "application/json"
+    //             },
+    //             body: JSON.stringify({
+    //                 fname, lname, email, mobile, message
+    //             })
+    //         });
+    //         const data = await res.json();
+    //         console.log(data);
+
+    //         if (data.status === 201) {
+    //             toast.success("Your Response Submitted")
+
+    //             setInputvalue({
+    //                 ...inputvalues,
+    //                 fname: "",
+    //                 lname: "",
+    //                 email: "",
+    //                 mobile: "",
+    //                 message: ""
+    //             })
+    //         }
+
+    //     }
+    // }
 
     return (
         <>
