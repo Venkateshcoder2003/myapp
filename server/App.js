@@ -11,10 +11,7 @@ const router = require('./Routes/router');
 
 const port = process.env.PORT || 6002;
 
-app.use(cors({
-    origin: "https://myapp-2i2n.vercel.app", // Allow only your frontend domain
-    credentials: true
-}));
+app.use(cors());
 // app.use(cors({
 //     origin:["myapp-3o2n.vercel.app"],
 //     methods:["POST","GET"],
