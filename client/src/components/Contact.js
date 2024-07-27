@@ -219,24 +219,16 @@
 
 // export default Contact
 
-
-
-
-
-
-
-
-
-import React, { useState } from 'react';
-import "./contact.css";
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import "./contact.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 
 const Contact = () => {
-    const [inputvalues, setInputvalue] = useState({
+
+    const [inputvalue, setInputvalue] = useState({
         fname: "",
         lname: "",
         email: "",
@@ -246,108 +238,99 @@ const Contact = () => {
 
     const getvalue = (e) => {
         const { name, value } = e.target;
-        setInputvalue({
-            ...inputvalues,
-            [name]: value
-        });
-    };
+        setInputvalue(() => {
+            return {
+                ...inputvalue,
+                [name]: value
+            }
+        })
 
-    const API_URL = process.env.REACT_APP_API_URL || 'https://myapp-2i2n.vercel.app';
+    }
 
     const sentUserdata = async (e) => {
         e.preventDefault();
 
-        const { fname, lname, email, mobile, message } = inputvalues;
-        if (fname === "") {
-            toast.error("First Name is Required");
-        } else if (lname === "") {
-            toast.error("Last Name is Required");
-        } else if (email === "") {
-            toast.error("Email is Required");
+        const { fname, lname, email, mobile, message } = inputvalue;
+        if (fname == "") {
+            toast.error("fname is require")
+        } else if (lname == "") {
+            toast.error("lname is require")
+        } else if (email == "") {
+            toast.error("email is require")
         } else if (!email.includes("@")) {
-            toast.error("Invalid Email");
-        } else if (mobile === "") {
-            toast.error("Mobile is Required");
+            toast.error("invalid email")
+        } else if (mobile == "") {
+            toast.error("mobile is require")
         } else {
-            try {
-                const res = await axios.post(`${API_URL}/register`, {
-                    fname,
-                    lname,
-                    email,
-                    mobile,
-                    message
-                }, {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
+            const res = await fetch("http://localhost:6002/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    fname, lname, email, mobile, message
+                })
+            });
+            const data = await res.json();
 
-                if (res.status === 201) {
-                    toast.success("Your Response Submitted");
-
-                    setInputvalue({
-                        fname: "",
-                        lname: "",
-                        email: "",
-                        mobile: "",
-                        message: ""
-                    });
-                } else {
-                    toast.error(res.data.error || "Failed to submit your response");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                if (error.response) {
-                    toast.error(error.response.data.error || "An error occurred");
-                } else {
-                    toast.error("An error occurred");
-                }
+            if (data.status == 201) {
+                toast.success("Your Response Submitted");
+                setInputvalue({
+                    ...inputvalue,
+                    fname: "",
+                    lname: "",
+                    email: "",
+                    mobile: "",
+                    message: ""
+                })
             }
         }
-    };
+    }
 
     return (
         <>
-            <div className='container mb-3 contact'>
-                <h2 className='text-center'>Contact Me</h2>
-                <div className='container mt-2'>
+            <div className="container mb-3 contact">
+                <h2 className='text-center'>ContactUS</h2>
+                <div className="container mt-2">
                     <Form className='row mt-2'>
                         <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
-                            <Form.Label>First Name</Form.Label>
-                            <Form.Control type="text" name='fname' value={inputvalues.fname} onChange={getvalue} />
+                            <Form.Label>Fname</Form.Label>
+                            <Form.Control type="text" name='fname' value={inputvalue.fname} onChange={getvalue} />
                         </Form.Group>
-
                         <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
-                            <Form.Label>Last Name</Form.Label>
-                            <Form.Control type="text" name='lname' value={inputvalues.lname} onChange={getvalue} />
+                            <Form.Label>Lname</Form.Label>
+                            <Form.Control type="text" name='lname' value={inputvalue.lname} onChange={getvalue} />
                         </Form.Group>
-
                         <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="text" name='email' value={inputvalues.email} onChange={getvalue} />
+                            <Form.Control type="email" name='email' value={inputvalue.email} onChange={getvalue} />
                         </Form.Group>
-
                         <Form.Group className="mb-3 col-lg-6" controlId="formBasicEmail">
                             <Form.Label>Mobile</Form.Label>
-                            <Form.Control type="text" name='mobile' value={inputvalues.mobile} onChange={getvalue} />
+                            <Form.Control type="text" name='mobile' value={inputvalue.mobile} onChange={getvalue} />
                         </Form.Group>
-
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                             <Form.Label>Message</Form.Label>
-                            <Form.Control as="textarea" rows={4} value={inputvalues.message} onChange={getvalue} name="message" />
+                            <Form.Control as="textarea" rows={4} onChange={getvalue} value={inputvalue.message} name="message" />
                         </Form.Group>
-
                         <div className='d-flex justify-content-center'>
-                            <Button variant="primary" className='col-lg-6 ' type="submit" onClick={sentUserdata}>
+                            <Button variant="primary" className='col-lg-6' type="submit" onClick={sentUserdata}>
                                 Submit
                             </Button>
                         </div>
+
                     </Form>
                     <ToastContainer />
                 </div>
             </div>
         </>
-    );
-};
+    )
+}
 
-export default Contact;
+export default Contact
+
+
+
+
+
+
