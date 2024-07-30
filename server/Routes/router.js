@@ -77,6 +77,7 @@
 //     }
 
 // })
+//module.exports = router;
 const express = require("express");
 const router = new express.Router();
 const users = require("../models/userSchema");
@@ -158,4 +159,3 @@ module.exports = router;
 
 
 
-module.exports = router;
