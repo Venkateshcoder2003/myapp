@@ -219,12 +219,15 @@
 
 // export default Contact
 
+
+import axios from 'axios';
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "./contact.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const Contact = () => {
 
@@ -262,7 +265,7 @@ const Contact = () => {
         } else if (mobile == "") {
             toast.error("mobile is require")
         } else {
-            const res = await fetch("https://myportfolio-three-kappa-32.vercel.app//register", {
+            const res = axios.post("https://myportfolio-three-kappa-32.vercel.app//register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
