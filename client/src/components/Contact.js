@@ -265,7 +265,7 @@ const Contact = () => {
         } else if (mobile == "") {
             toast.error("mobile is require")
         } else {
-            const res = axios.post("https://myportfolio-three-kappa-32.vercel.app//register", {
+            const res = axios.post("https://myportfolio-three-kappa-32.vercel.app/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
