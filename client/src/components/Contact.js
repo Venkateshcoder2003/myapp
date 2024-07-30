@@ -160,7 +160,11 @@ const Contact = () => {
         } else {
             axios.post("https://myportfolio-three-kappa-32.vercel.app/register", {
                 fname, lname, email, password, mobile, message
-            })
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+        )
                 .then(res => {
                     const data = res.data;
                     if (data.status === 201) {
