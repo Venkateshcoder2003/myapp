@@ -262,7 +262,7 @@ const Contact = () => {
         } else if (mobile == "") {
             toast.error("mobile is require")
         } else {
-            const res = await fetch("http://localhost:6002/register", {
+            const res = await fetch("https://myportfolio-three-kappa-32.vercel.app//register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
