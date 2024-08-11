@@ -46,7 +46,7 @@ const Contact = () => {
         } else if (mobile === "") {
             toast.error("Mobile Number is required");
         } else {
-            axios.post("https://myportfolio-three-kappa-32.vercel.app/register", {
+            axios.post("https://myportfolio-three-kappa-32.vercel.app//register", {
                 fname, lname, email, password, mobile, message
             }, {
                 headers: {
